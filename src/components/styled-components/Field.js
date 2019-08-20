@@ -21,13 +21,16 @@ const handleErrorMessages = errorMessages => {
 const Field = ({ data: { name, type, placeholder, label }, fieldStyle, inputStyle, ...props }) => {
   const [shown, setShown] = useState(false);
   const errorColor = props.errors.length >= 1 ? '#e95667' : null; 
+  const {display, ...inputStyleContainer } = inputStyle;
+  const {border, borderTop, borderRight, borderBottom, borderLeft, ...inputStyleNoBorder } = inputStyle;
+  
   const inputType =
     {
       select: 'select',
       slider: 'slider',
       textarea: 'textarea'
     }[type] || 'input'
-
+    
     return (
     <Box display="flex" {...fieldStyle}>
       <Box 
@@ -39,14 +42,16 @@ const Field = ({ data: { name, type, placeholder, label }, fieldStyle, inputStyl
         {props.errors.length >= 1 ? <Box as="list" ml="2rem" color={errorColor} fontSize="1.2rem">{handleErrorMessages(props.errors)}</Box> : ''}
       </Box>
       <Box
-        //{...inputStyle}
+        {...inputStyleContainer}
+        display="flex"
         borderColor={errorColor}
         focusColor={errorColor} 
         foucsBoxShadowColor={errorColor}
       >
         <Box
-          //{...props}
-          {...inputStyle}
+          {...props}
+          {...inputStyleNoBorder}
+          border="none"
           forwardedAs={inputType}
           name={name}
           type={shown && type === "password" ? 'text' : type} 

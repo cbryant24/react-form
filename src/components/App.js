@@ -3,11 +3,16 @@ import Box from './styled-components/Box';
 import Field from './styled-components/Field'
 
 const App = () => {
-  const [inputVal, setInputVal ] = useState('');
+  const [emailVal, setEmailVal ] = useState('');
+  const [passwordVal, setPasswordVal ] = useState('');
 
   const handleChange = (e) => {
+    if (e.target.name === 'email') {
+      setEmailVal(e.target.value);
+      return
+    }
 
-    setInputVal(e.target.value);
+    setPasswordVal(e.target.value);
   }
 
 
@@ -15,6 +20,7 @@ const App = () => {
     appearance: 'none',
     display: 'block',
     verticalAlign: 'middle',
+    color: 'white',
     width: '75%',
     maxWidth: '38rem',
     lineHeight: 'inherit',
@@ -62,7 +68,20 @@ const App = () => {
       as="form"
     >
       <Field
-        data={{ name: 'email'}}
+        data={{ name: 'email', type: 'text', placeholder: 'enter email', label: 'email'}}
+        fieldStyle={{ width: '75%', maxHeight: '5rem', justifyContent: 'space-between', flexDirection: 'column'}}
+        inputStyle={{...inputStyle}}
+        errors={[]}
+        value={emailVal}
+        onChange={handleChange}
+      />
+      <Field
+        data={{ name: 'password', type: 'password', placeholder: 'enter password', label: 'email'}}
+        fieldStyle={{ width: '75%', maxHeight: '5rem', justifyContent: 'space-between', flexDirection: 'column'}}
+        inputStyle={{...inputStyle}}
+        errors={[]}
+        value={passwordVal}
+        onChange={handleChange}
       />
     </Box>
   )
